@@ -81,29 +81,43 @@ class OrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-      return Stack(
+      return Column(
         children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 35,
-            child: Row(
-              children: <Widget>[
-                Text("我的订单")
-              ],
-            ),
-          )
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 35,
-            child: Row(
-              children: <Widget>[
-
-              ],
-            ),
+          Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 20,top: 10,bottom: 10),
+                child: Text("我的订单"),
+              )
+            ],
+          ),
+          Padding(
+              padding: const EdgeInsets.only(left: 20,right: 20),
+              child: Container(
+                height: 0.5,
+                color: Colors.black45,
+              ),
+          ),
+          Flex(
+            direction: Axis.horizontal,
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: OrderItem('待付款'),
+              ),
+               Expanded(
+                flex: 1,
+                child: OrderItem("待分享"),
+              ),
+               Expanded(
+                flex: 1,
+                child: OrderItem("待自提"),
+              ),
+               Expanded(
+                flex: 1,
+                child: OrderItem("已完成"),
+              )
+            ],
           )
         ],
       );
@@ -112,17 +126,31 @@ class OrderPage extends StatelessWidget {
 }
 
 
-class OrderItem extends StatelessWidget {
+class OrderItem extends StatefulWidget {
+ 
+  final String title;
+  
+  OrderItem(this.title):super();
+   
+  @override
+  OrderItemState createState() => new OrderItemState();
+}
+
+class OrderItemState extends State<OrderItem> {
 
    @override
    Widget build(BuildContext context) {
      return Column(
         children: <Widget>[
           Image(
-            image: AssetImage('images/mine_avatar.png'),
+            fit: BoxFit.contain,
+            width: 40,
+            image: AssetImage('images/mine_order.png'),
           ),
-          Text("全部")
+          Text(widget.title)
         ],
      );
   }
+
 }
+
